@@ -21,4 +21,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --interval 30 express_app
-
+  networks:
+      express_nw:
+          driver: bridge
