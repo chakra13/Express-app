@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  express_app:
+    container_name: express_app
+    image: chiyotori/express_app:latest
+    ports:
+      - 8080:8080
+
+  watchtower:
+    container_name: watchtower
+    image: containrrr/watchtower
+    environment:
+      - WATCHTOWER_CLEANUP=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30 express_app
