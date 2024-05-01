@@ -3,8 +3,15 @@ services:
   express_app:
     container_name: express_app
     image: chiyotori/express_app:latest
+    restart: always
+    environment:
+      - PORT=8080
+    expose:
+      - 8080
     ports:
       - 8080:8080
+    networks:
+      - express_nw
 
   watchtower:
     container_name: watchtower
@@ -14,3 +21,4 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --interval 30 express_app
+
