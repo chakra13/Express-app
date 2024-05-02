@@ -3,24 +3,13 @@ services:
   express_app:
     container_name: express_app
     image: chiyotori/express_app:latest
-    restart: always
-    environment:
-      - PORT=8080
-    expose:
-      - 8080
     ports:
-      - 8080:8080
-    networks:
-      - express_nw
+      - 5000:5000
 
   watchtower:
-    container_name: watchtower
     image: containrrr/watchtower
     environment:
-      - WATCHTOWER_CLEANUP=true
+      -  WATCHTOWER_POLL_INTERVAL=60 # Poll every 60 seconds
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 express_app
-  networks:
-      express_nw:
-          driver: bridge
+    container_name: watchtower
